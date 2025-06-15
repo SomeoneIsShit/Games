@@ -1,0 +1,1274 @@
+-------------------------------[[ Others ]]-------------------------------
+	local HttpService = game:GetService("HttpService")
+	local Player = game.Players.LocalPlayer
+	local PlayerName = Player and Player.DisplayName or "UnknownPlayer"
+	
+	
+	local RootFolder = "Someone Hub"           
+	local MainFolder = "Main"                  
+	local GameName = "Dead Rails"             
+	local FilePrefix = "Someone Settings"      
+	
+	
+	local FirstFolderPath = RootFolder .. "/" .. MainFolder
+	local SecondFolderPath = FirstFolderPath .. "/" .. GameName
+	local SaveFile = SecondFolderPath .. "/" .. FilePrefix .. " - " .. PlayerName .. ".json"
+	
+	
+	local S = {
+	--Main--
+	["Select Mode"] = "Normal",
+	["Select Train"] = "Default",
+	["Number Of Players"] = 1,
+	["Start Game"] = false,
+	["Private Lobby"] = true,
+	--Train--
+	["Press W"] = false,
+	["ESP Train"] = true,
+	--Player--
+	["No Clip"] = false,
+	["Instant Bandage"] = false,
+	["No Hold Cooldown"] = true,
+	["Select Distance Aimbot"] = 500,
+	["Aimbot Enemies"] = false,
+	["Raycast"] = true,
+	-- Visual --
+	
+	}
+	
+	
+	local secretKey = "minhaChaveSuperSecreta"
+	
+	
+	local function EncryptData(data)
+	    local encrypted = HttpService:JSONEncode(data)
+	    
+	    return encrypted
+	end
+	
+	
+	local function DecryptData(data)
+	    
+	    local decrypted = HttpService:JSONDecode(data)
+	    return decrypted
+	end
+	
+	
+	local function SS()
+	    local dataEncrypted = EncryptData(S)
+	
+	    if writefile and makefolder then
+	        if not isfolder(RootFolder) then
+	            makefolder(RootFolder)
+	        end
+	
+	        if not isfolder(FirstFolderPath) then
+	            makefolder(FirstFolderPath)
+	        end
+	
+	        if not isfolder(SecondFolderPath) then
+	            makefolder(SecondFolderPath)
+	        end
+	
+	        writefile(SaveFile, dataEncrypted)
+	    else
+	        warn("Seu executor não suporta salvar arquivos.")
+	    end
+	end
+	
+	
+	local function LoadSettings()
+	    if isfile and readfile and isfile(SaveFile) then
+	        local successRead, dataEncrypted = pcall(readfile, SaveFile)
+	        if successRead then
+	            local successDecode, dataDecoded = pcall(DecryptData, dataEncrypted)
+	            if successDecode then
+	                for k, v in pairs(dataDecoded) do
+	                    S[k] = v
+	                end
+	            else
+	                warn("Erro ao decodificar os dados.")
+	            end
+	        else
+	            warn("Erro ao ler o arquivo de configurações.")
+	        end
+	    else
+	        if not (isfile and readfile) then
+	            warn("Seu executor não suporta leitura de arquivos.")
+	        end
+	        SS()
+	    end
+	end
+	
+	LoadSettings()
+	
+	Sea1 = false
+	Sea2 = false
+	Id = game.PlaceId
+	if Id == 116495829188952 then
+	Sea1 = true
+	elseif Id == 70876832253163 then
+	Sea2 = true
+	end
+	
+
+	
+	TranslateName = {
+		["Gunsmith"] = {Name = "Gunsmith", Color3 = Color3.fromRGB(226, 220, 188), Color = "rgb(226, 220, 188)"},
+		["FurnitureDestroyed"] = {Name = "Furniture Destroyed", Color3 = Color3.fromRGB(125, 62, 0), Color = "rgb(125, 62, 0)"},
+		["House"] = {Name = "House", Color3 = Color3.fromRGB(158, 81, 59), Color = "rgb(158, 81, 59)"},
+		["CoalOre"] = {Name = "Coal Ore", Color3 = Color3.fromRGB(0, 0, 0), Color = "rgb(0, 0, 0)"},
+		["GoldOre"] = {Name = "Gold Ore", Color3 = Color3.fromRGB(255, 223, 0), Color = "rgb(255, 223, 0)"},
+		["SilverOre"] = {Name = "Silver Ore", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["Model_RifleSoldier"] = {Name = "Soldier with Rifle", Color3 = Color3.fromRGB(220, 20, 60), Color = "rgb(220, 20, 60)"},
+		["Model_TurretSoldier"] = {Name = "Soldier with Turret", Color3 = Color3.fromRGB(255, 140, 0), Color = "rgb(255, 140, 0)"},
+		["Model_Runner"] = {Name = "Zombie Runner", Color3 = Color3.fromRGB(128, 0, 0), Color = "rgb(128, 0, 0)"},
+		["Model_Horse"] = {Name = "Horse", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Newspaper"] = {Name = "Newspaper", Color3 = Color3.fromRGB(200, 200, 200), Color = "rgb(200, 200, 200)"},
+		["GoldBar"] = {Name = "Gold Bar", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["OpenableCrate"] = {Name = "Openable Crate", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Moneybag"] = {Name = "Money Bag", Color3 = Color3.fromRGB(0, 128, 0), Color = "rgb(0, 128, 0)"},
+		["Bandage"] = {Name = "Bandage", Color3 = Color3.fromRGB(255, 248, 220), Color = "rgb(255, 248, 220)"},
+		["Snake Oil"] = {Name = "Snake Oil", Color3 = Color3.fromRGB(34, 139, 34), Color = "rgb(34, 139, 34)"},
+		["Coal"] = {Name = "Coal", Color3 = Color3.fromRGB(54, 69, 79), Color = "rgb(54, 69, 79)"},
+		["Landmine"] = {Name = "Landmine", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["BearTrap"] = {Name = "Bear Trap", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["LeftWerewolfArm"] = {Name = "Left Werewolf Arm", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Rope"] = {Name = "Rope", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["LightningRod"] = {Name = "Lightning Rod", Color3 = Color3.fromRGB(255, 255, 224), Color = "rgb(255, 255, 224)"},
+		["WantedPoster"] = {Name = "Wanted Poster", Color3 = Color3.fromRGB(218, 165, 32), Color = "rgb(218, 165, 32)"},
+		["Wheel"] = {Name = "Wheel", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Vase"] = {Name = "Vase", Color3 = Color3.fromRGB(205, 133, 63), Color = "rgb(205, 133, 63)"},
+		["Chair"] = {Name = "Chair", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["Book"] = {Name = "Book", Color3 = Color3.fromRGB(0, 0, 139), Color = "rgb(0, 0, 139)"},
+		["BrainJar"] = {Name = "Brain Jar", Color3 = Color3.fromRGB(123, 104, 238), Color = "rgb(123, 104, 238)"},
+		["LeftWerewolfLeg"] = {Name = "Left Werewolf Leg", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["SilverBar"] = {Name = "Silver Bar", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["StrangeMachine"] = {Name = "Strange Machine", Color3 = Color3.fromRGB(128, 0, 128), Color = "rgb(128, 0, 128)"},
+		["WerewolfTorso"] = {Name = "Werewolf Torso", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["VaseTwo"] = {Name = "Vase II", Color3 = Color3.fromRGB(205, 133, 63), Color = "rgb(205, 133, 63)"},
+		["RightWerewolfArm"] = {Name = "Right Werewolf Arm", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["GlassBottle"] = {Name = "Glass Bottle", Color3 = Color3.fromRGB(135, 206, 235), Color = "rgb(135, 206, 235)"},
+		["RightWerewolfLeg"] = {Name = "Right Werewolf Leg", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Crossbow"] = {Name = "Crossbow", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["BarbedWire"] = {Name = "Barbed Wire", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["Dynamite"] = {Name = "Dynamite", Color3 = Color3.fromRGB(178, 34, 34), Color = "rgb(178, 34, 34)"},
+		["Revolver"] = {Name = "Revolver", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["RevolverAmmo"] = {Name = "Revolver Ammo", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["ShotgunShells"] = {Name = "Shotgun Shells", Color3 = Color3.fromRGB(139, 0, 0), Color = "rgb(139, 0, 0)"},
+		["Statue"] = {Name = "Statue", Color3 = Color3.fromRGB(112, 128, 144), Color = "rgb(112, 128, 144)"},
+		["Bolt Action Rifle"] = {Name = "Bolt Action Rifle", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Camera"] = {Name = "Camera", Color3 = Color3.fromRGB(0, 0, 0), Color = "rgb(0, 0, 0)"},
+		["Barrel"] = {Name = "Barrel", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Navy Revolver"] = {Name = "Navy Revolver", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["RifleAmmo"] = {Name = "Rifle Ammo", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["Lantern"] = {Name = "Lantern", Color3 = Color3.fromRGB(255, 255, 224), Color = "rgb(255, 255, 224)"},
+		["Pickaxe"] = {Name = "Pickaxe", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["Shovel"] = {Name = "Shovel", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["Shotgun"] = {Name = "Shotgun", Color3 = Color3.fromRGB(139, 0, 0), Color = "rgb(139, 0, 0)"},
+		["Banjo"] = {Name = "Banjo", Color3 = Color3.fromRGB(222, 184, 135), Color = "rgb(222, 184, 135)"},
+		["Saddle"] = {Name = "Saddle", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["Tomahawk"] = {Name = "Tomahawk", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["TurretAmmo"] = {Name = "Turret Ammo", Color3 = Color3.fromRGB(255, 140, 0), Color = "rgb(255, 140, 0)"},
+		["GunpowderBarrel"] = {Name = "Gunpowder Barrel", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["Mauser"] = {Name = "Mauser", Color3 = Color3.fromRGB(112, 128, 144), Color = "rgb(112, 128, 144)"},
+		["Head_Armor"] = {Name = "Head Armor", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["Left Arm_Armor"] = {Name = "Left Arm Armor", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["MaximGun"] = {Name = "Maxim Gun", Color3 = Color3.fromRGB(90, 90, 90), Color = "rgb(90, 90, 90)"},
+		["Model_RifleOutlaw"] = {Name = "Rifle Outlaw", Color3 = Color3.fromRGB(139, 0, 0), Color = "rgb(139, 0, 0)"},
+		["Model_RevolverOutlaw"] = {Name = "Revolver Outlaw", Color3 = Color3.fromRGB(165, 42, 42), Color = "rgb(165, 42, 42)"},
+		["Model_ShotgunOutlaw"] = {Name = "Shotgun Outlaw", Color3 = Color3.fromRGB(178, 34, 34), Color = "rgb(178, 34, 34)"},
+		["OutlawCamp"] = {Name = "Outlaw Camp", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["AbandonedMine"] = {Name = "Abandoned Mine", Color3 = Color3.fromRGB(90, 90, 90), Color = "rgb(90, 90, 90)"},
+		["SheriffsOffice"] = {Name = "Sheriff's Office", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["Model_Walker"] = {Name = "Walker", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["Painting"] = {Name = "Painting", Color3 = Color3.fromRGB(238, 232, 170), Color = "rgb(238, 232, 170)"},
+		["Bond"] = {Name = "Bond", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["ArrowAmmo"] = {Name = "Arrow Ammo", Color3 = Color3.fromRGB(160, 160, 160), Color = "rgb(160, 160, 160)"},
+		["Teapot"] = {Name = "Teapot", Color3 = Color3.fromRGB(245, 245, 220), Color = "rgb(245, 245, 220)"},
+		["Sawed-Off Shotgun"] = {Name = "Sawed-Off Shotgun", Color3 = Color3.fromRGB(139, 0, 0), Color = "rgb(139, 0, 0)"},
+		["SilverCup"] = {Name = "Silver Cup", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["Right Arm_Armor"] = {Name = "Right Arm Armor", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["Ballista"] = {Name = "Ballista", Color3 = Color3.fromRGB(128, 128, 128), Color = "rgb(128, 128, 128)"},
+		["Rifle"] = {Name = "Rifle", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["Model_Vampire"] = {Name = "Vampire", Color3 = Color3.fromRGB(153, 0, 76), Color = "rgb(153, 0, 76)"},
+		["Cannon"] = {Name = "Cannon", Color3 = Color3.fromRGB(80, 80, 80), Color = "rgb(80, 80, 80)"},
+		["CannonBalls"] = {Name = "Cannon Balls", Color3 = Color3.fromRGB(60, 60, 60), Color = "rgb(60, 60, 60)"},
+		["Model_Unicorn"] = {Name = "Unicorn", Color3 = Color3.fromRGB(255, 182, 193), Color = "rgb(255, 182, 193)"},
+		["GoldStatue"] = {Name = "Gold Statue", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["Crucifix"] = {Name = "Crucifix", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["Holy Water"] = {Name = "Holy Water", Color3 = Color3.fromRGB(135, 206, 250), Color = "rgb(135, 206, 250)"},
+		["SilverStatue"] = {Name = "Silver Statue", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["GoldPainting"] = {Name = "Gold Painting", Color3 = Color3.fromRGB(218, 165, 32), Color = "rgb(218, 165, 32)"},
+		["GoldPocketWatch"] = {Name = "Gold Pocket Watch", Color3 = Color3.fromRGB(255, 223, 0), Color = "rgb(255, 223, 0)"},
+		["Model_Wolf"] = {Name = "Wolf", Color3 = Color3.fromRGB(105, 105, 105), Color = "rgb(105, 105, 105)"},
+		["GoldCup"] = {Name = "Gold Cup", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["Model_ZombieSheriff"] = {Name = "Zombie Sheriff", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Model_ArmoredZombie"] = {Name = "Armored Zombie", Color3 = Color3.fromRGB(112, 128, 144), Color = "rgb(112, 128, 144)"},
+		["Molotov"] = {Name = "Molotov", Color3 = Color3.fromRGB(178, 34, 34), Color = "rgb(178, 34, 34)"},
+		["BallistaBolts"] = {Name = "Ballista Bolts", Color3 = Color3.fromRGB(128, 128, 128), Color = "rgb(128, 128, 128)"},
+		["GoldPlate"] = {Name = "Gold Plate", Color3 = Color3.fromRGB(255, 215, 0), Color = "rgb(255, 215, 0)"},
+		["Elephant Rifle"] = {Name = "Elephant Rifle", Color3 = Color3.fromRGB(139, 69, 19), Color = "rgb(139, 69, 19)"},
+		["SilverPocketWatch"] = {Name = "Silver Pocket Watch", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["Model_Werewolf"] = {Name = "Werewolf", Color3 = Color3.fromRGB(123, 63, 0), Color = "rgb(123, 63, 0)"},
+		["Cavalry Sword"] = {Name = "Cavalry Sword", Color3 = Color3.fromRGB(169, 169, 169), Color = "rgb(169, 169, 169)"},
+		["SilverPainting"] = {Name = "Silver Painting", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["Rock"] = {Name = "Rock", Color3 = Color3.fromRGB(96, 96, 96), Color = "rgb(96, 96, 96)"},
+		["SilverNugget"] = {Name = "Silver Nugget", Color3 = Color3.fromRGB(200, 200, 200), Color = "rgb(200, 200, 200)"},
+		["Telegraph"] = {Name = "Telegraph", Color3 = Color3.fromRGB(160, 82, 45), Color = "rgb(160, 82, 45)"},
+		["Model_Banker"] = {Name = "Banker", Color3 = Color3.fromRGB(47, 79, 79), Color = "rgb(47, 79, 79)"},
+		["BankCombo"] = {Name = "Bank Combo", Color3 = Color3.fromRGB(255, 255, 255), Color = "rgb(255, 255, 255)"},
+		["Model_ZombieMiner"] = {Name = "Zombie Miner", Color3 = Color3.fromRGB(100, 100, 100), Color = "rgb(100, 100, 100)"},
+		["Torch"] = {Name = "Torch", Color3 = Color3.fromRGB(255, 140, 0), Color = "rgb(255, 140, 0)"},
+		["Blunderbuss"] = {Name = "Blunderbuss", Color3 = Color3.fromRGB(110, 90, 60), Color = "rgb(110, 90, 60)"},
+		["SilverPlate"] = {Name = "Silver Plate", Color3 = Color3.fromRGB(192, 192, 192), Color = "rgb(192, 192, 192)"},
+		["Model_ZombieRevolverOfficer"] = {Name = "Zombie Revolver Officer", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Model_ZombieRevolverSoldier"] = {Name = "Zombie Revolver Soldier", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Model_ZombieUnarmedSoldier"] = {Name = "Zombie Unarmed Soldier", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["Model_ZombieSwordOfficer"] = {Name = "Zombie Sword Officer", Color3 = Color3.fromRGB(85, 107, 47), Color = "rgb(85, 107, 47)"},
+		["GoldNugget"] = {Name = "Gold Nugget", Color3 = Color3.fromRGB(255, 223, 0), Color = "rgb(255, 223, 0)"},
+		["Model_CaptainPrescott"] = {Name = "Captain Prescott", Color3 = Color3.fromRGB(70, 100, 130), Color = "rgb(70, 100, 130)"},
+		["Doctor"] = {Name = "Doctor", Color3 = Color3.fromRGB(200, 100, 100), Color = "rgb(200, 100, 100)"},
+		["DoctorDestroyed"] = {Name = "Destroyed Doctor", Color3 = Color3.fromRGB(150, 80, 80), Color = "rgb(150, 80, 80)"},
+		["Farm"] = {Name = "Farm", Color3 = Color3.fromRGB(100, 180, 100), Color = "rgb(100, 180, 100)"},
+		["DestroyedHouse"] = {Name = "Destroyed House", Color3 = Color3.fromRGB(130, 110, 90), Color = "rgb(130, 110, 90)"},
+		["Furniture"] = {Name = "Furniture", Color3 = Color3.fromRGB(160, 140, 120), Color = "rgb(160, 140, 120)"},
+		["GunsmithDestroyed"] = {Name = "Destroyed Gunsmith", Color3 = Color3.fromRGB(140, 70, 70), Color = "rgb(140, 70, 70)"},
+		["GeneralStore"] = {Name = "General Store", Color3 = Color3.fromRGB(180, 150, 100), Color = "rgb(180, 150, 100)"},
+		["DestroyedSheriffsOffice"] = {Name = "Destroyed Sheriff's Office", Color3 = Color3.fromRGB(120, 90, 90), Color = "rgb(120, 90, 90)"},
+		["Torso_Armor"] = {Name = "Torso Armor", Color3 = Color3.fromRGB(90, 90, 110), Color = "rgb(90, 90, 110)"},
+		["SheetMetal"] = {Name = "Sheet Metal", Color3 = Color3.fromRGB(130, 130, 130), Color = "rgb(130, 130, 130)"},
+		["GeneralStoreDestroyed"] = {Name = "Destroyed General Store", Color3 = Color3.fromRGB(160, 120, 90), Color = "rgb(160, 120, 90)"},
+		["HorseCart"] = {Name = "Horse Cart", Color3 = Color3.fromRGB(120, 90, 60), Color = "rgb(120, 90, 60)"},
+		}
+	
+	-------------------------------[[ Main ]]-------------------------------
+	function Init()
+		local args = {
+			{
+				isPrivate = _G.PrivateLobby,
+				maxMembers = _G.NumberPlayers,
+				trainId = _G.SelectTrain:lower(),
+				gameMode = _G.SelectMode
+			}
+		}
+		game:GetService("ReplicatedStorage"):WaitForChild("Shared"):WaitForChild("Network"):WaitForChild("RemoteEvent"):WaitForChild("CreateParty"):FireServer(unpack(args))
+	end
+	
+	task.spawn(function()
+		while task.wait() do
+			if _G.StartGame then
+				Player = workspace[game.Players.LocalPlayer.Name].HumanoidRootPart
+				Part = workspace.PartyZones.PartyZone
+				Part1 = workspace.PartyZones.PartyZone1
+				Part2 = workspace.PartyZones.PartyZone2
+				Part3 = workspace.PartyZones.PartyZone3
+				Gui = game:GetService("Players").LocalPlayer.PlayerGui.ExitParty.Enabled
+				if Part.BillboardGui.PlayerCount.Text == "0/4" and Gui == false then
+					firetouchinterest(Player, Part.Hitbox, 0)
+					firetouchinterest(Player, Part.Hitbox, 1)
+					task.wait(1)
+					Init()
+				elseif Part1.BillboardGui.PlayerCount.Text == "0/4" and Gui == false then
+					firetouchinterest(Player, Part1.Hitbox, 0)
+					firetouchinterest(Player, Part1.Hitbox, 1)
+					task.wait(1)
+					Init()
+				elseif Part2.BillboardGui.PlayerCount.Text == "0/4" and Gui == false then
+					firetouchinterest(Player, Part2.Hitbox, 0)
+					firetouchinterest(Player, Part2.Hitbox, 1)
+					task.wait(1)
+					Init()
+				elseif Part3.BillboardGui.PlayerCount.Text == "0/4" and Gui == false then
+					firetouchinterest(Player, Part3.Hitbox, 0)
+					firetouchinterest(Player, Part3.Hitbox, 1)
+					task.wait(1)
+					Init()
+				end
+			end
+		end
+	end)
+	
+	-------------------------------[[ Train ]]-------------------------------
+	if Sea2 then
+	local function GetFuelPercent()
+		local gauge = workspace.default.RequiredComponents.Controls.Fuel.SurfaceGui.ImageLabel.Gauge
+		local rot = gauge.Rotation % 360
+		if rot >= 120 or rot <= 50 then
+			local effectiveRotation = rot >= 120 and (rot - 120) or (240 + rot)
+			local percent = (effectiveRotation / 290) * 100
+			return math.floor(percent + 0.5)
+		else
+			return 0
+		end
+	end
+
+	local function ESPTrain()
+		local TrainSeat = workspace.default.RequiredComponents.Controls.ConductorSeat.VehicleSeat
+		local PlayerPos = workspace[game.Players.LocalPlayer.Name].Head.Position
+		local distance = math.floor((PlayerPos - TrainSeat.Position).Magnitude)
+		local fuel = GetFuelPercent()
+		local Gui = TrainSeat:FindFirstChild("Train ESP")
+
+		if not _G.ESPTrain then
+			if Gui then Gui:Destroy() end
+			return
+		end
+
+		if not Gui then
+			Gui = Instance.new("BillboardGui", TrainSeat)
+			Gui.Name = "Train ESP"
+			Gui.Adornee = TrainSeat
+			Gui.AlwaysOnTop = true
+			Gui.ExtentsOffset = Vector3.new(0, 1, 0)
+			Gui.Size = UDim2.new(1, 240, 1, 40)
+
+			local label = Instance.new("TextLabel", Gui)
+			label.Name = "Train Text"
+			label.Size = UDim2.new(1, 0, 1, 0)
+			label.BackgroundTransparency = 1
+			label.Font = Enum.Font.FredokaOne
+			label.TextStrokeTransparency = 0
+			label.TextSize = 10
+			label.RichText = true
+			label.TextColor3 = Color3.new(1, 1, 0)
+			label.Text = ""
+		end
+
+		-- Edita o texto se já existir
+		local label = Gui:FindFirstChild("Train Text")
+		if label then
+			label.Text = string.format(
+				"<b><font color='rgb(255, 176, 0)'>Train Here</font> <font color='rgb(255, 255, 255)'>[ %d ]</font></b>\n<font color='rgb(255, 128, 0)'>[ Fuel: %d%% ]</font>",
+				distance, fuel
+			)
+		end
+	end
+
+	task.spawn(function()
+		while task.wait(0.5) do
+			pcall(ESPTrain)
+		end
+	end)
+	end
+	-------------------------------[[ Player ]]-------------------------------
+
+
+	if Sea2 then
+	local ignoreModels = {
+    ["Model_RifleSoldier"] = true,
+    ["Model_TurretSoldier"] = true,
+    ["Model_Horse"] = true,
+	}
+	
+	local function GetEnemies()
+	    local enemies = {}
+	    for _, v in pairs(workspace:GetDescendants()) do
+	        if v.Name:sub(1,6) == "Model_" and not ignoreModels[v.Name] then
+	            table.insert(enemies, v)
+	        end
+	    end
+	    return enemies
+	end
+	local function IsGlass(instance)
+	    local name = instance.Name:lower()
+	    local isGlassByName = name:find("glass") or name:find("window")
+	    local isGlassByMaterial = instance:IsA("BasePart") and (
+	        instance.Material == Enum.Material.Glass or
+	        instance.Material == Enum.Material.ForceField or
+	        instance.Material == Enum.Material.Neon 
+	    )
+	    return isGlassByName or isGlassByMaterial
+	end
+	
+	local function IsVisible(part)
+	    if not _G.Raycast then return true end
+	    if not part then return false end
+	
+	    local origin = workspace.CurrentCamera.CFrame.Position
+	    local direction = (part.Position - origin).Unit * 999
+	
+	    local rayParams = RaycastParams.new()
+	    rayParams.FilterType = Enum.RaycastFilterType.Blacklist
+	    rayParams.FilterDescendantsInstances = {game.Players.LocalPlayer.Character}
+	    rayParams.IgnoreWater = true
+	
+	    local currentPosition = origin
+	    local remainingDistance = (part.Position - origin).Magnitude
+	
+	    while remainingDistance > 1 do
+	        local result = workspace:Raycast(currentPosition, direction, rayParams)
+	        if not result then return true end
+	
+	        if result.Instance and IsGlass(result.Instance) then
+	            currentPosition = result.Position + direction.Unit * 0.1
+	            remainingDistance = (part.Position - currentPosition).Magnitude
+	            table.insert(rayParams.FilterDescendantsInstances, result.Instance)
+	        else
+	            return result.Instance:IsDescendantOf(part.Parent)
+	        end
+	    end
+	
+	    return true
+	end
+	
+	local Camera = workspace.CurrentCamera
+	
+	local function LookAt(pos)
+	    Camera.CFrame = CFrame.lookAt(Camera.CFrame.Position, pos)
+	end
+	
+	task.spawn(function()
+	    while task.wait() do
+	        if not _G.AimbotEnemies then return end
+	
+	        local localChar = game.Players.LocalPlayer.Character
+	        if not localChar then return end
+	
+	        local head = localChar:FindFirstChild("Head")
+	        if not head then return end
+	
+	        local closestTarget = nil
+	        local closestDist = math.huge
+	
+	        for _, enemy in pairs(GetEnemies()) do
+	            local humanoid = enemy:FindFirstChildOfClass("Humanoid")
+	            local enemyHead = enemy:FindFirstChild("Head")
+	
+	            if humanoid and enemyHead and humanoid.Health > 0 and IsVisible(enemyHead) then
+	                local dist = (enemyHead.Position - head.Position).Magnitude
+	                if dist < closestDist and dist < (_G.AimbotRadius or math.huge) then
+	                    closestDist = dist
+	                    closestTarget = enemyHead
+	                end
+	            end
+	        end
+	
+	        if closestTarget then
+	            LookAt(closestTarget.Position)
+	        end
+	    end
+	end)
+	end
+	-------------------------------[[ Visual ]]-------------------------------
+	if Sea1 or Sea2 then
+	function ESPPlayers()
+		for _, player in pairs(game.Players:GetPlayers()) do
+			if player ~= game.Players.LocalPlayer then
+				local char = player.Character
+				local head = char and char:FindFirstChild("Head")
+
+				if head then
+					local esp = head:FindFirstChild("PlayerESP")
+
+					if not _G.ESPPlayers then
+						if esp then esp:Destroy() end
+						return
+					end
+
+					local localChar = game.Players.LocalPlayer.Character
+					local localHead = localChar and localChar:FindFirstChild("Head")
+					if not localHead then return end
+
+					local distance = (localHead.Position - head.Position).Magnitude
+					local hum = char:FindFirstChildOfClass("Humanoid")
+					local health = hum and math.floor(hum.Health) or 0
+					local maxHealth = hum and math.floor(hum.MaxHealth) or 0
+
+					local labelText = string.format(
+						"<font color='rgb(255, 115, 0)'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>\n<font color='rgb(0,255,0)'>[%d/%d]</font>",
+						player.DisplayName, distance, health, maxHealth
+					)
+
+					if Sea1 and player:FindFirstChild("leaderstats") and player.leaderstats:FindFirstChild("Wins") then
+						labelText ..= string.format(" <font color='rgb(255,255,0)'>[%d]</font>", player.leaderstats.Wins.Value)
+					elseif Sea2 and player:FindFirstChild("Money") then
+						labelText ..= string.format(" <font color='rgb(16, 109, 0)'>[%d]</font>", player.Money.Value)
+					end
+
+					if not esp then
+						esp = Instance.new("BillboardGui")
+						esp.Name = "PlayerESP"
+						esp.Adornee = head
+						esp.AlwaysOnTop = true
+						esp.ExtentsOffset = Vector3.new(0, 2, 0)
+						esp.Size = UDim2.new(2, 0, 1, 0)
+						esp.Parent = head
+
+						local text = Instance.new("TextLabel")
+						text.Name = "Info"
+						text.Size = UDim2.new(1, 0, 1, 0)
+						text.BackgroundTransparency = 1
+						text.Font = Enum.Font.FredokaOne
+						text.TextStrokeTransparency = 0
+						text.TextSize = 10
+						text.RichText = true
+						text.Text = ""
+						text.Parent = esp
+					end
+
+					local label = esp:FindFirstChild("Info")
+					if label and label.Text ~= labelText then
+						label.Text = labelText
+					end
+				end
+			end
+		end
+	end
+
+	-- Loop com delay
+	task.spawn(function()
+		while task.wait(0.5) do
+			pcall(ESPPlayers)
+		end
+	end)
+end
+
+if Sea2 then
+function ESPItems()
+	if not _G.ESPItems then
+		for _, item in pairs(workspace:WaitForChild("RuntimeItems"):GetChildren()) do
+			local oldESP = item:FindFirstChild("ItemESP")
+			if oldESP then oldESP:Destroy() end
+		end
+		return
+	end
+
+	for _, item in pairs(workspace.RuntimeItems:GetChildren()) do
+		local info = TranslateName[item.Name]
+
+		local distance = (game.Players.LocalPlayer.Character.Head.Position - item.PrimaryPart.Position).Magnitude
+		local fuel = item:GetAttribute("Fuel")
+		local value = item:GetAttribute("Value")
+
+		local fuelText = fuel and string.format(" <font color='rgb(255,224,189)'>[ Fuel: %s ]</font>", tostring(fuel)) or ""
+		local valueText = value and string.format(" <font color='rgb(16, 109, 0)'>[ Value: %s ]</font>", tostring(value)) or ""
+
+		local labelText = string.format(
+			"<font color='%s'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>\n%s%s",
+			info.Color, info.Name, distance, fuelText, valueText
+		)
+
+		local esp = item:FindFirstChild("ItemESP")
+		if not esp then
+			esp = Instance.new("BillboardGui")
+			esp.Name = "ItemESP"
+			esp.Adornee = item.PrimaryPart
+			esp.AlwaysOnTop = true
+			esp.ExtentsOffset = Vector3.new(0, 2, 0)
+			esp.Size = UDim2.new(2, 0, 1, 0)
+			esp.Parent = item
+
+			local text = Instance.new("TextLabel")
+			text.Name = "Info"
+			text.Size = UDim2.new(1, 0, 1, 0)
+			text.BackgroundTransparency = 1
+			text.Font = Enum.Font.FredokaOne
+			text.TextStrokeTransparency = 0
+			text.TextSize = 10
+			text.RichText = true
+			text.Text = ""
+			text.Parent = esp
+		end
+
+		local label = esp:FindFirstChild("Info")
+		if label and label.Text ~= labelText then
+			label.Text = labelText
+		end
+	end
+end
+
+-- Loop otimizado
+task.spawn(function()
+	while task.wait(0.5) do
+		pcall(ESPItems)
+	end
+end)
+local ignoreModels = {
+    ["Model_RifleSoldier"] = true,
+    ["Model_TurretSoldier"] = true,
+    ["Model_Horse"] = true,
+    ["Model_Unicorn"] = true,
+}
+
+function ESPEnemies()
+	for _, inst in pairs(workspace:GetDescendants()) do
+		if not inst:IsA("Model") then return end
+		if not inst.Name:match("^Model_") then return end
+		if ignoreModels[inst.Name] then return end
+
+		local hum = inst:FindFirstChildOfClass("Humanoid")
+		local root = inst:FindFirstChild("HumanoidRootPart")
+		local esp = inst:FindFirstChild("EnemyESP")
+
+		if not _G.ESPEnemies or not hum or hum.Health <= 0 or not root then
+			if esp then esp:Destroy() end
+			return
+		end
+
+		local info = TranslateName[inst.Name]
+		if not info then return end
+
+		local localChar = game.Players.LocalPlayer.Character
+		local localHead = localChar and localChar:FindFirstChild("Head")
+		if not localHead then return end
+
+		local distance = (localHead.Position - root.Position).Magnitude
+		local health = math.floor(hum.Health)
+		local maxHealth = math.floor(hum.MaxHealth)
+
+		local labelText = string.format(
+			"<font color='%s'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>\n<font color='rgb(0,255,0)'>[%d/%d]</font>",
+			info.Color, info.Name, distance, health, maxHealth
+		)
+
+		if not esp then
+			esp = Instance.new("BillboardGui")
+			esp.Name = "EnemyESP"
+			esp.Adornee = root
+			esp.AlwaysOnTop = true
+			esp.ExtentsOffset = Vector3.new(0, 3, 0)
+			esp.Size = UDim2.new(2, 0, 1, 0)
+			esp.Parent = inst
+
+			local text = Instance.new("TextLabel")
+			text.Name = "Info"
+			text.Size = UDim2.new(1, 0, 1, 0)
+			text.BackgroundTransparency = 1
+			text.Font = Enum.Font.FredokaOne
+			text.TextStrokeTransparency = 0
+			text.TextSize = 10
+			text.RichText = true
+			text.Text = ""
+			text.Parent = esp
+		end
+
+		local label = esp:FindFirstChild("Info")
+		if label and label.Text ~= labelText then
+			label.Text = labelText
+		end
+	end
+end
+
+-- Loop com delay controlado
+task.spawn(function()
+	while task.wait(0.5) do
+		pcall(ESPEnemies)
+	end
+end)
+function ESPOres()
+	for _, ore in pairs(workspace:WaitForChild("Ore"):GetChildren()) do
+		if not ore:IsA("Model") then return end
+
+		local healthVal = ore:FindFirstChild("Health")
+		local root = ore.PrimaryPart or ore:FindFirstChildWhichIsA("BasePart")
+		local esp = ore:FindFirstChild("OreESP")
+
+		if not _G.ESPOres or not healthVal or not root then
+			if esp then esp:Destroy() end
+			return
+		end
+
+		local info = TranslateName[ore.Name]
+		if not info then return end
+
+		local char = game.Players.LocalPlayer.Character
+		local head = char and char:FindFirstChild("Head")
+		if not head then return end
+
+		local distance = (head.Position - root.Position).Magnitude
+		local health = healthVal.Value
+
+		local labelText = string.format(
+			"<font color='%s'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>\n<font color='rgb(0,255,0)'>[%d]</font>",
+			info.Color, info.Name, distance, health
+		)
+
+		if not esp then
+			esp = Instance.new("BillboardGui")
+			esp.Name = "OreESP"
+			esp.Adornee = root
+			esp.AlwaysOnTop = true
+			esp.ExtentsOffset = Vector3.new(0, 3, 0)
+			esp.Size = UDim2.new(2, 0, 1, 0)
+			esp.Parent = ore
+
+			local text = Instance.new("TextLabel")
+			text.Name = "Info"
+			text.Size = UDim2.new(1, 0, 1, 0)
+			text.BackgroundTransparency = 1
+			text.Font = Enum.Font.FredokaOne
+			text.TextStrokeTransparency = 0
+			text.TextSize = 10
+			text.RichText = true
+			text.Text = ""
+			text.Parent = esp
+		end
+
+		local label = esp:FindFirstChild("Info")
+		if label and label.Text ~= labelText then
+			label.Text = labelText
+		end
+	end
+end
+
+task.spawn(function()
+	while task.wait(0.5) do
+		pcall(ESPOres)
+	end
+end)
+local allowedAnimals = {
+	["Model_Horse"] = true,
+	["Model_Unicorn"] = true,
+	["Model_Wolf"] = true,
+}
+
+function ESPHorses()
+	for _, inst in pairs(workspace:GetDescendants()) do
+		if not inst:IsA("Model") or not allowedAnimals[inst.Name] then return end
+
+		local hum = inst:FindFirstChildOfClass("Humanoid")
+		local root = inst:FindFirstChild("HumanoidRootPart")
+		local esp = inst:FindFirstChild("HorseESP")
+
+		if not _G.ESPAnimais or not hum or hum.Health <= 0 or not root then
+			if esp then esp:Destroy() end
+			return
+		end
+
+		local info = TranslateName[inst.Name]
+		if not info then return end
+
+		local char = game.Players.LocalPlayer.Character
+		local head = char and char:FindFirstChild("Head")
+		if not head then return end
+
+		local distance = (head.Position - root.Position).Magnitude
+		local health = math.floor(hum.Health)
+		local maxHealth = math.floor(hum.MaxHealth)
+
+		local labelText = string.format(
+			"<font color='%s'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>\n<font color='rgb(0,255,0)'>[%d/%d]</font>",
+			info.Color, info.Name, distance, health, maxHealth
+		)
+
+		if not esp then
+			esp = Instance.new("BillboardGui")
+			esp.Name = "HorseESP"
+			esp.Adornee = root
+			esp.AlwaysOnTop = true
+			esp.ExtentsOffset = Vector3.new(0, 3, 0)
+			esp.Size = UDim2.new(2, 0, 1, 0)
+			esp.Parent = inst
+
+			local text = Instance.new("TextLabel")
+			text.Name = "Info"
+			text.Size = UDim2.new(1, 0, 1, 0)
+			text.BackgroundTransparency = 1
+			text.Font = Enum.Font.FredokaOne
+			text.TextStrokeTransparency = 0
+			text.TextSize = 10
+			text.RichText = true
+			text.Text = ""
+			text.Parent = esp
+		end
+
+		local label = esp:FindFirstChild("Info")
+		if label and label.Text ~= labelText then
+			label.Text = labelText
+		end
+	end
+end
+
+
+task.spawn(function()
+	while task.wait(0.5) do
+		pcall(ESPHorses)
+	end
+end)
+function ESPHouses()
+	for _, house in pairs(workspace:WaitForChild("RandomBuildings"):GetChildren()) do
+		local esp = house:FindFirstChild("HouseESP")
+
+		if not _G.ESPHouses then
+			if esp then esp:Destroy() end
+			return
+		end
+
+		local info = TranslateName[house.Name]
+		if not info then return end
+
+		local root = house.PrimaryPart or house:FindFirstChildWhichIsA("BasePart")
+		if not root then return end
+
+		local char = game.Players.LocalPlayer.Character
+		local head = char and char:FindFirstChild("Head")
+		if not head then return end
+
+		local distance = (head.Position - root.Position).Magnitude
+
+		local labelText = string.format(
+			"<font color='%s'>%s</font> <font color='rgb(180,180,180)'>[ %.0f ]</font>",
+			info.Color, info.Name, distance
+		)
+
+		if not esp then
+			esp = Instance.new("BillboardGui")
+			esp.Name = "HouseESP"
+			esp.Adornee = root
+			esp.AlwaysOnTop = true
+			esp.ExtentsOffset = Vector3.new(0, 3, 0)
+			esp.Size = UDim2.new(2, 0, 1, 0)
+			esp.Parent = house
+
+			local label = Instance.new("TextLabel")
+			label.Name = "Info"
+			label.Size = UDim2.new(1, 0, 1, 0)
+			label.BackgroundTransparency = 1
+			label.Font = Enum.Font.FredokaOne
+			label.TextStrokeTransparency = 0
+			label.TextSize = 10
+			label.RichText = true
+			label.Text = ""
+			label.Parent = esp
+		end
+
+		local label = esp:FindFirstChild("Info")
+		if label and label.Text ~= labelText then
+			label.Text = labelText
+		end
+	end
+end
+
+-- Loop lindão, mas com respiração
+task.spawn(function()
+	while task.wait(0.5) do
+		pcall(ESPHouses)
+	end
+end)
+
+end
+	-------------------------------[[ More ]]-------------------------------
+	
+	-------------------------------[[ Window ]]-------------------------------
+	
+	local redzlib = loadstring(game:HttpGet("https://raw.githubusercontent.com/SomeoneIsShit/Librarys/refs/heads/main/RedzLibrary.lua"))()
+	
+	local Window = redzlib:MakeWindow({
+	Title = "Someone Hub - Dead Rails",
+	SubTitle = "by Someone",
+	SaveFolder = "Someone Settings.json"
+	})
+	
+	Window:AddMinimizeButton({
+	  Button = { Image = "rbxassetid://6390505386", BackgroundTransparency = 0 },
+	  Corner = { CornerRadius = UDim.new(0, 6) }
+	})
+	
+	local Discord = Window:MakeTab({Title = "Discord", Icon = "alertcircle"})
+	local Main = Window:MakeTab({Title = "Main", Icon = "home"})
+	local Train = Window:MakeTab({Title = "Train", Icon = "train"})
+	local Player = Window:MakeTab({Title = "Player", Icon = "usercog"})
+	local Visual = Window:MakeTab({Title = "Visual", Icon = "eye"})
+	local More = Window:MakeTab({Title = "More", Icon = "smile"})
+	
+	
+	-------------------------------[[ Discord ]]-------------------------------
+	Discord:AddDiscordInvite({
+	Title = "Someone Hub",
+	Description = "Teste",
+	Logo = "rbxassetid://6390505386",
+	Invite = "",
+	})
+	
+	-------------------------------[[ Main ]]-------------------------------
+	if Sea1 then
+	Main : AddSection("Match")
+	
+	Main : AddDropdown({
+    Title = "Select Mode",
+    Description = "Select the Mode You Want to Play",
+    Options = {"Normal", "Nightmare", "Scorched Earth"},
+    Default = S["Select Mode"],
+    MultiSelect = false,
+    Callback = function(Value)
+    _G.SelectMode = Value
+        S["Select Mode"] = Value
+        SS()
+    end
+	})
+	
+	Main : AddDropdown({
+    Title = "Select Train",
+    Description = "Select Which Train Will Be Used For Departures",
+    Options = {"Default","Cattle","Golden","Armored"},
+    Default = S["Select Train"],
+    MultiSelect = false,
+    Callback = function(Value)
+    _G.SelectTrain = Value
+        S["Select Train"] = Value
+        SS()
+    end
+	})
+	
+	Main : AddSlider({
+    Title = "Number Of Players",
+    Description = "Number Of Players That Can Enter Your Lobby",
+    Min = 1,
+    Max = 10,
+    Increase = 1,
+    Default = S["Number Of Players"],
+    Callback = function(Value)
+    _G.NumberPlayers = Value
+        S["Number Of Players"] = Value
+        SS()
+    end
+    })
+	
+	Main:AddToggle({
+    Title = "Start",
+    Description = "Start The Game Automatically",
+    Default = S["Start Game"],
+    Callback = function(Value)
+    _G.StartGame = Value
+        S["Start Game"] = Value
+        SS()
+    end
+	})
+	
+	Main:AddToggle({
+    Title = "Private Lobby",
+    Description = "Torna o Lobby Privado",
+    Default = S["Private Lobby"],
+    Callback = function(Value)
+    _G.PrivateLobby = Value
+        S["Private Lobby"] = Value
+        SS()
+    end
+	})
+	
+	else
+	
+	Main : AddSection("Only On The First Map")
+	
+	end
+	-------------------------------[[ Train ]]-------------------------------
+	if Sea2 then
+	Train : AddSection("Train Info")
+	local TrainDistance = Train : AddParagraph({
+	Title = "Distance Traveled: "..workspace.default.RequiredComponents.Controls.DistanceDial.SurfaceGui.TextLabel.Text,
+	Description = ""
+	})
+	
+	task.spawn(function()
+		while task.wait() do
+			TrainDistance:SetTitle("Distance Traveled: "..workspace.default.RequiredComponents.Controls.DistanceDial.SurfaceGui.TextLabel.Text)
+			TrainDistance:SetDesc("Distance the Train Has Traveled")
+		end
+	end)
+	
+	local TimeDay = Train : AddParagraph({
+	Title = "Time Of Day: "..workspace.default.RequiredComponents.Controls.TimeDial.SurfaceGui.TextLabel.Text,
+	Description = ""
+	})
+	
+	task.spawn(function()
+		while task.wait() do
+			TimeDay:SetTitle("Time Of Day: "..workspace.default.RequiredComponents.Controls.TimeDial.SurfaceGui.TextLabel.Text)
+			TimeDay:SetDesc("Current Time of Day")
+		end
+	end)
+	
+	local FuelStatus = Train:AddParagraph({
+	Title = "Fuel",
+	Description = "Calculating..."
+})
+
+	local function GetFuelPercent()
+		local gauge = workspace.default.RequiredComponents.Controls.Fuel.SurfaceGui.ImageLabel.Gauge
+		local rot = gauge.Rotation % 360
+		if rot >= 119 or rot <= 49 then
+			local effectiveRotation = rot >= 120 and (rot - 120) or (240 + rot)
+			local percent = (effectiveRotation / 290) * 100
+			return math.floor(percent + 0.5)
+		else
+			return 0
+		end
+	end
+
+	task.spawn(function()
+		while task.wait() do
+			local fuel = GetFuelPercent()
+			FuelStatus:SetTitle("Fuel: " .. fuel .. "%")
+	
+			local desc = "State: "
+			if fuel >= 95 then
+				desc = desc .. "Full tank"
+			elseif fuel >= 60 then
+				desc = desc .. "High fuel"
+			elseif fuel >= 30 then
+				desc = desc .. "Moderate"
+			elseif fuel >= 10 then
+				desc = desc .. "Low"
+			else
+				desc = desc .. "Critical!"
+			end
+	
+			FuelStatus:SetDesc(desc)
+		end
+	end)
+
+	Train : AddSection("Train Control")
+	
+	Train : AddButton({
+    Title = "Teleport to the Train",
+    Description = "Teleport To Train Seat Instantly",
+    Callback = function()
+    workspace[game.Players.LocalPlayer.Name].HumanoidRootPart.CFrame = workspace.default.RequiredComponents.Controls.ConductorSeat.VehicleSeat.CFrame + Vector3.new(0, -1.5, 0)
+    end})
+	
+	Train:AddToggle({
+    Title = "Ride The Train",
+    Description = "Keep The Train Moving",
+    Default = S["Press W"],
+    Callback = function(Value)
+        S["Press W"] = Value
+        SS()
+
+        -- Encapsulado tudo aqui dentro
+        local Players = game:GetService("Players")
+        local VirtualInputManager = game:GetService("VirtualInputManager")
+
+        -- Se ativar, começa o loop
+        if Value then
+            task.spawn(function()
+                while S["Press W"] do
+                    local player = Players.LocalPlayer
+                    local char = workspace:FindFirstChild(player.Name)
+                    local seat = workspace.default.RequiredComponents.Controls.ConductorSeat.VehicleSeat
+
+                    if char and seat and char:FindFirstChild("HumanoidRootPart") then
+                        local humanoid = char:FindFirstChildOfClass("Humanoid")
+                        
+                        if humanoid and humanoid.SeatPart == seat then
+                            VirtualInputManager:SendKeyEvent(true, "W", false, game)
+                        end
+                    end
+
+                    task.wait(0.1)
+                end
+
+                -- Ao desativar, solta o W
+                VirtualInputManager:SendKeyEvent(false, "W", false, game)
+            end)
+        end
+    end})
+	
+	Train : AddButton({
+    Title = "Honk the Train",
+    Description = "Train Horn From A Distance",
+    Callback = function()
+    fireclickdetector(workspace.default.RequiredComponents.Controls.Lever.HitBox.ClickDetector)
+    end})
+	
+	Train:AddToggle({
+    Title = "ESP Train",
+    Description = "See The Distance And Fuel Of The Train",
+    Default = S["ESP Train"],
+    Callback = function(Value)
+    _G.ESPTrain = Value
+        S["ESP Train"] = Value
+        SS()
+    end
+	})
+	else
+	Train : AddSection("Only On The Second Map")
+	end
+	-------------------------------[[ Player ]]-------------------------------
+	Player : AddSection("Hack")
+	Player:AddToggle({
+    Title = "No Clip",
+    Description = "Make Player Collision-Free [ Risk of Falling Off the Map ]",
+    Default = S["No Clip"],
+    Callback = function(Value)
+    _G.NoClip = Value 
+        S["No Clip"] = Value
+        SS()
+    end
+	})
+	
+	task.spawn(function()
+		while task.wait() do
+			if _G.NoClip then
+				for i, v in pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+					if v:IsA("Part") or v:IsA("MeshPart") and v.CanCollide == true then
+						v.CanCollide = false
+					end
+				end
+			else
+				for i, v in pairs(workspace[game.Players.LocalPlayer.Name]:GetChildren()) do
+					if v:IsA("Part") or v:IsA("MeshPart") and v.CanCollide == false then
+						v.CanCollide = true
+					end
+				end
+			end
+		end
+	end)
+	
+	task.spawn(function()
+		while task.wait() do
+			if _G.InstantBandage then
+				local bandage = workspace[game.Players.LocalPlayer.Name]:FindFirstChild("Bandage")
+				if bandage and workspace[game.Players.LocalPlayer.Name].Humanoid.Health < 85 or game:GetService("Players").LocalPlayer.PlayerGui.BandageUse.Enabled == true then
+					bandage.Use:FireServer()
+				end
+			end
+		end
+	end)
+	
+		workspace.DescendantAdded:Connect(function(v)
+			if _G.NoHoldCooldown then
+				if v:IsA("ProximityPrompt") and v.HoldDuration ~= 0 then
+					v.HoldDuration = 0
+				end
+			end
+		end)
+	
+	
+    Player : AddSection("Player Support")
+    
+    Player:AddToggle({
+    Title = "Instant Bandage",
+    Description = "Use the Bandage Instantly",
+    Default = S["Instant Bandage"],
+    Callback = function(Value)
+    _G.InstantBandage = Value
+        S["Instant Bandage"] = Value
+        SS()
+    end
+	})
+	
+	Player:AddToggle({
+    Title = "No Hold Cooldown",
+    Description = "Remove Cooldown From Proximity Prompts",
+    Default = S["No Hold Cooldown"],
+    Callback = function(Value)
+    _G.NoHoldCooldown = Value
+        S["No Hold Cooldown"] = Value
+        SS()
+    end
+	})
+	
+	
+	Player : AddSection("Aimbot")
+	
+	Player : AddSlider({
+    Title = "Select Distance",
+    Description = "Distance to Pull the Sight to Enemies",
+    Min = 50,
+    Max = 1000,
+    Increase = 50,
+    Default = S["Select Distance Aimbot"],
+    Callback = function(Value)
+    _G.AimbotRadius = Value
+        S["Select Distance Aimbot"] = Value
+        SS()
+    end
+    })
+    
+    Player:AddToggle({
+    Title = "Aimbot Enemies",
+    Description = "Aim at the Heads of Selected Enemies",
+    Default = S["Aimbot Enemies"],
+    Callback = function(Value)
+    _G.AimbotEnemies = Value
+        S["Aimbot Enemies"] = Value
+        SS()
+    end
+	})
+	
+	Player:AddToggle({
+    Title = "Raycast Parameter",
+    Description = "Create an Invisible Line Between You and the Enemy and Detect If He is Visible ",
+    Default = S["Raycast"],
+    Callback = function(Value)
+    _G.Raycast = Value
+        S["Raycast"] = Value
+        SS()
+    end
+	})
+	
+	-------------------------------[[ Visual ]]-------------------------------
+	Visual : AddSection("ESP")
+	
+	Visual:AddToggle({
+    Title = "ESP Players",
+    Description = "See Player's Name, Distance, Life, Max Life and Wins or Money",
+    Default = S["ESP Players"],
+    Callback = function(Value)
+    _G.ESPPlayers = Value 
+        S["ESP Players"] = Value
+        SS()
+    end
+	})
+	
+	if Sea2 then
+	
+	Visual:AddToggle({
+    Title = "ESP Items",
+    Description = "See Name, Distance, Fuel And/Or Value",
+    Default = S["ESP Items"],
+    Callback = function(Value)
+    _G.ESPItems = Value 
+        S["ESP Items"] = Value
+        SS()
+    end
+	})
+	
+	Visual:AddToggle({
+    Title = "ESP Enemies",
+    Description = "View Enemy Information: Name, Distance, Health and Max Health",
+    Default = S["ESP Enemies"],
+    Callback = function(Value)
+    _G.ESPEnemies = Value
+        S["ESP Enemies"] = Value
+        SS()
+    end
+	})
+	
+	Visual:AddToggle({
+    Title = "ESP Ores",
+    Description = "See Information About The Ores: Name, Distance, Current Life",
+    Default = S["ESP Ores"],
+    Callback = function(Value)
+    _G.ESPOres = Value
+        S["ESP Ores"] = Value
+        SS()
+    end
+	})
+	
+	Visual:AddToggle({
+    Title = "ESP Animais",
+    Description = "See Information About Animals: Name, Distance, Life, Max Life",
+    Default = S["ESP Animais"],
+    Callback = function(Value)
+    _G.ESPAnimais = Value
+        S["ESP Animais"] = Value
+        SS()
+    end
+	})
+	
+	Visual:AddToggle({
+    Title = "ESP Houses",
+    Description = "see the information about the houses: Name, Distance",
+    Default = S["ESP Houses"],
+    Callback = function(Value)
+    _G.ESPHouses = Value
+        S["ESP Houses"] = Value
+        SS()
+    end
+	})
+	end
+	
+	-------------------------------[[ More ]]-------------------------------
+	
