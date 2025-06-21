@@ -1,1 +1,25 @@
 
+Class = {
+    "None",
+    "Musician",
+    "Miner",
+    "Doctor",
+    "Arsonist",
+    "Necromancer",
+    "Packmaster",
+    "Cowboy",
+    "Alamo",
+    "Conductor",
+    "Werewolf",
+    "HighRoller",
+    "Demolitionist",
+    "Milkman",
+    "Survivalist",
+    "Vampire",
+    "Hunter",
+    "Priest",
+    "President",
+    "Zombie",
+    "Ironclad",
+    "Eggslinger"
+}
