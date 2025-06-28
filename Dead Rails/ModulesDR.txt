@@ -141,4 +141,5 @@
 		["Electrocutioner"] = true,
 		["Mauser"] = true,
 		["Lantern"] = true,
+                ["Bond"] = true,
 	}
