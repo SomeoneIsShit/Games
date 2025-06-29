@@ -107,6 +107,7 @@
 		["GoldOre"] = "Gold Ore",
 		["SilverOre"] = "Silver Ore",
 		["CoalOre"] = "Coal Ore",
+                ["BottleRocketLauncher"] = "Bottle Rocket Launcher",
 	}
 	
 	Utilities = {
@@ -140,6 +141,7 @@
 		["Rifle"] = true,
 		["Electrocutioner"] = true,
 		["Mauser"] = true,
+                ["Shotgun"] = true,
 		["Lantern"] = true,
                 ["Bond"] = true,
 	}
