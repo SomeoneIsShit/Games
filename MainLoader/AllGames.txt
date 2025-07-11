@@ -1,5 +1,5 @@
 	local GamesId = {
-		[3317064564] = "Centaura/Centaura.txt",
+		["3317064564"] = "Centaura/Centaura.txt",
 	}
 	
 	if GamesId[game.GameId] then
