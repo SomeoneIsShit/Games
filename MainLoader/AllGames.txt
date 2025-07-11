@@ -1,0 +1,10 @@
+	local GamesId = {
+		[3317064564] = "Centaura/Centaura.txt",
+	}
+	
+	if GamesId[game.GameId] then
+		loadstring(game:HttpGet("https://raw.githubusercontent.com/SomeoneIsShit/Games/refs/heads/main/"..GamesId[game.GameId]))()
+	else
+		setclipboard("https://discord.gg/ReFNzFy6AZ")
+		game.Players.LocalPlayer:Kick("This Game Is Not Supported\nJoin Discord "https://discord.gg/ReFNzFy6AZ" To Know The Supported Games")
+	end
