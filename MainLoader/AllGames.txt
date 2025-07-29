@@ -4,7 +4,7 @@
 --    elseif game.GameId == 994732206 then
 --        loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/SomeoneIsShit/Games/Centaura/.txt"))()
     elseif game.GameId == 7326934954 then
-		    loadstring(game:HttpGet("https://raw.githubusercontent.com/SomeoneIsShit/Games/refs/heads/main/99%20Nights%20In%20The%20Forest/99Nights.txt"))()
+		    loadstring(game:HttpGet("https://raw.githubusercontent.com/SomeoneIsShit/Games/refs/heads/main/99%20Nights%20In%20The%20Forest/99Nights.lua"))()
 	else
 		setclipboard("https://discord.gg/ReFNzFy6AZ")
 		game.Players.LocalPlayer:Kick("This Game Is Not Supported\nJoin Discord 'https://discord.gg/3gGZCs7tPt' To Know The Supported Games")
