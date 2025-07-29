@@ -5,8 +5,8 @@
 	}
 	
 	if GamesId[game.GameId] then
-		loadstring(game:HttpGet("https://raw.githubusercontent.com/SomeoneIsShit/Games/refs/heads/main/"..GamesId[game.GameId]))()
-	else
+		loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/SomeoneIsShit/Games/"..GamesId[game.GameId]))()
+        else
 		setclipboard("https://discord.gg/ReFNzFy6AZ")
 		game.Players.LocalPlayer:Kick("This Game Is Not Supported\nJoin Discord 'https://discord.gg/3gGZCs7tPt' To Know The Supported Games")
 	end
