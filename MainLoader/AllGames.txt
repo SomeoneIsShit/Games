@@ -1,6 +1,7 @@
 	local GamesId = {
 		[3317064564] = "Centaura/Centaura.txt",
                 [994732206] = "Blox%20Fruits/BloxFruits.txt",
+                ["7326934954"] = "99%20Nights%20In%20The%20Forest/99Nights.lua",
 	}
 	
 	if GamesId[game.GameId] then
