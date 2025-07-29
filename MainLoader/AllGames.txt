@@ -4,8 +4,8 @@
                 [7326934954] = "99%20Nights%20In%20The%20Forest/99Nights.lua",
 	}
 	
-	if GamesId[game.GameId] then
-		loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/SomeoneIsShit/Games/"..GamesId[game.GameId]))()
+	if game.GameId == 3317064564 then
+		loadstring(game:HttpGet("https://cdn.jsdelivr.net/gh/SomeoneIsShit/Games/Centaura/Centaura.txt"))()
         else
 		setclipboard("https://discord.gg/ReFNzFy6AZ")
 		game.Players.LocalPlayer:Kick("This Game Is Not Supported\nJoin Discord 'https://discord.gg/3gGZCs7tPt' To Know The Supported Games")
